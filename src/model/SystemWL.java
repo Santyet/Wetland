@@ -1,8 +1,5 @@
 package model;
 
-import java.lang.StackWalker.Option;
-import java.sql.Blob;
-
 public class SystemWL {
 
     private static final int maxWetlands=79;
@@ -71,26 +68,36 @@ public class SystemWL {
 
 	}
 
-    public String addEvent(String n, String et, DateA ed, String h, double c, String d){
+    public String addEvent(String n, int et, DateA ed, String h, double c, String d){
 
-        
+        EventType eventSelect = null;
 
         String out = "";
-        int select;
 
-        for(int i = 0; i<maxWetlands;i++){
-
-            if(wetlands[i].getName().equals(n)){
-                select = i;
-            }
+        switch(et){
+            case 1:
+                eventSelect = EventType.MAINTENANCE;
+                break;
+            case 2:
+                eventSelect = EventType.SCHOOL_VISIT;
+                break;
+            case 3:
+                eventSelect = EventType.IMPROVEMENT_ACTIVITIE;
+                break;
+            case 4:
+                eventSelect = EventType.CELEBRATION;
+                break;
         }
+       
 
         if (emptyPosES() == -1){
 
             out = "Array is full.";
         }else{
 
-            events[emptyPosES()] = new Event(et, ed, h, c, d);
+            events[emptyPosES()] = new Event(eventSelect, ed, h, c, d);
+
+            wetlands[getWetlandSpace(n)].addEventToWetland(events[emptyPosES()-1]);
          
             out = "New event added";
         }
@@ -99,7 +106,7 @@ public class SystemWL {
 
     }
 
- public String addSpecie(String n, String en, String esn, boolean m, int t){
+    public String addSpecie(String n, String en, String esn, boolean m, int t){
 
         String out = "";
         int select;
@@ -157,9 +164,16 @@ public class SystemWL {
         return out;
     }
 
-    public void associateSpecie2Wetland(){
+    public String numberMaintenances(int year){
 
-        
+        String out = "";
+        for(int i=0; i<maxWetlands;i++){
+			if(wetlands[i]!=null){
+				out += i+1 + ". Wetland name: "+ wetlands[i].getName()+ "\nNumber of maintenances: "+ wetlands[i].numMaintenance(year) + "\n\n";
+			}
+		}
+
+        return out;
     }
 
     public String displayWetlands(){
@@ -173,7 +187,7 @@ public class SystemWL {
 		}
 		return totalWetlandsInfo;
 	}
-
+    
     public boolean checkForWetlandName(String wName){
 
         boolean ok = true;
@@ -188,6 +202,21 @@ public class SystemWL {
         }
 
         return ok;
+    }
+
+    public int getWetlandSpace(String n){
+
+        int out = -1;
+
+        for(int i = 0; i<maxWetlands; i++){
+            if(wetlands[i]!=null){
+                if(wetlands[i].getName().equals(n)){
+                    out = i;
+                }
+            }
+        }
+
+        return out;
     }
 
     public boolean checkFor12(int opt){
@@ -205,7 +234,35 @@ public class SystemWL {
         return ok;
     }
 
-   
+    public boolean checkFor1234(int opt){
+
+        boolean ok = false;
+        do{
+        if(opt!=2 & opt!=1 & opt!=3 & opt!=4){
+            System.out.println("Enter a valid option.");
+            break;
+            }else{
+                ok = true;
+            }
+        }while(opt!=2 & opt!=1 & opt!=3 & opt!=4);
+
+        return ok;
+    }
+
+    public boolean checkFor12345(int opt){
+
+        boolean ok = false;
+        do{
+        if(opt!=2 & opt!=1 & opt!=3 & opt!=4 & opt!=5){
+            System.out.println("Enter a valid option.");
+            break;
+            }else{
+                ok = true;
+            }
+        }while(opt!=2 & opt!=1 & opt!=3 & opt!=4 & opt!=5);
+
+        return ok;
+    }
 	public int getMaxWetlands(){
 
 		return maxWetlands;

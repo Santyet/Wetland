@@ -1,9 +1,6 @@
 package ui;
 import java.util.Scanner;
 
-import javax.swing.border.EtchedBorder;
-import javax.swing.text.AsyncBoxView;
-
 import model.SystemWL;
 import model.DateA;
 
@@ -65,10 +62,10 @@ public class MainWetland {
                 addSpecie();
                 break;
             case 3:
-            
+                registerEvent();
                 break;
             case 4:
-
+                showMaintenance();
                 break;
             case 5:
 
@@ -97,7 +94,6 @@ public class MainWetland {
         String wPictureURL;
         boolean wProtectedArea;
         String wLocationName;
-        int maxWetlands = system.getMaxWetlands();
 
         do{
         System.out.println("Registering wetland...\nPlease enter the name of the wetland: ");
@@ -162,7 +158,7 @@ public class MainWetland {
     public void registerEvent(){
 
         String eName;
-        String eType;
+        int eType;
         DateA eDate;
         String eHost;
         double eCost;
@@ -173,9 +169,13 @@ public class MainWetland {
 
         System.out.println("Please type the name of the wetland where you want to create the event: ");
         eName = sc.nextLine();
-
-        System.out.println("Please type the event type: ");
-        eType = sc.nextLine();
+        do{
+        System.out.println("Please select the event type: \n(1)Maintenance."+
+        "\n(2)School visit."+
+        "\n(3)Improvement activity."+
+        "\n(4)Celebrations.");
+        eType = sc.nextInt();
+        }while(!system.checkFor1234(eType));
 
         System.out.println("Please type the event date... \nDay: ");
         eDay = sc.nextInt();
@@ -185,6 +185,7 @@ public class MainWetland {
 
         System.out.println("Year: ");
         eYear = sc.nextInt();
+        sc.nextLine();
 
         eDate = new DateA(eDay, eMonth, eYear);
 
@@ -193,12 +194,14 @@ public class MainWetland {
 
         System.out.println("Please type the cost of the event: ");
         eCost = sc. nextDouble();
-        
+        sc.nextLine();
+
         System.out.println("Please type the event description: ");
         eDescription = sc.nextLine();
 
         System.out.println(system.addEvent(eName, eType, eDate, eHost, eCost, eDescription));
     }
+    
 
     public void addSpecie(){
 
@@ -212,13 +215,14 @@ public class MainWetland {
         System.out.println("Please enter the wetland to add the specie: ");
         wetName = sc.nextLine();
 
+        do{
         System.out.println("Please enter the type of the specie: \n(1)Acuatic Flora."+
         "\n(2)Land Flora."+
         "\n(3)Mammal."+
         "\n(4)Bird."+
         "\n(5)Acuatic Fauna");
-
         option = sc.nextInt();
+        }while(!system.checkFor12345(option));
         sc.nextLine();
 
         System.out.println("Please enter the name of the specie: ");
@@ -240,6 +244,14 @@ public class MainWetland {
 
     }
 
+    public void showMaintenance(){
+        int year;
+
+        System.out.println("Please type the year to know the maintenances done.");
+        year = sc.nextInt();
+
+        System.out.println(system.numberMaintenances(year));
+    }
 
     /**
      * @return Scanner return the sc

@@ -1,5 +1,7 @@
 package model;
 
+import java.text.BreakIterator;
+
 public class Wetland{
 
 	private String name;
@@ -36,6 +38,45 @@ public class Wetland{
 		events = new Event[maxEvents];
 	}
 
+    public void addEventToWetland(Event e){
+
+        events[emptyPosES()] = e;
+
+    }
+
+    public String numMaintenance(int y){
+
+        int count=0;
+
+        for(int i=0;i<maxEvents;i++){
+            if(events[i]!=null){
+                if(events[i].getEventType().equals(EventType.MAINTENANCE)){
+                    if(events[i].bringYear()==y){
+                       count++; 
+                    }
+                }
+            }
+        }
+
+        return "Number of maintenances:" + count;
+    }
+
+    public int emptyPosES(){
+
+		int emptyPositionES= -1;
+        boolean stop = false;
+		for (int i=0; i<maxEvents & !stop; i++){
+
+			if(events[i] == null){
+				emptyPositionES= i;
+                stop = true;
+			}
+
+		}
+		return emptyPositionES;
+
+	}
+
 	public String toString(){
 
 		String lt = null;
@@ -64,9 +105,21 @@ public class Wetland{
 		+"\nType of wetland: "+t
 		+"\nArea: "+area+"km2"
 		+"\nPicture URL: "+pictureURL
-		+"\nProtected: "+p
-		+"\nNumber of events done: "+eventCount;
+		+"\nProtected: "+p;
 	}
+
+    public String organizeEvents(){
+
+        String out = "";
+
+        for(int i=0; i<maxEvents;i++){
+			if(events[i]!=null){
+				out += i+1 + ". " + events[i].toString() + "\n\n";
+			}
+		}
+
+        return out;
+    }
 
 	public String organizeSpecies(){
 
@@ -82,6 +135,7 @@ public class Wetland{
 
 	public void setEvents(Event[] events) {
 		this.events = events;
+        eventCount++;
 	}
 
 	/**
