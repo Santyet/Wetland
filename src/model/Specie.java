@@ -5,8 +5,8 @@ public class Specie {
 	private String specieName;
 	private String scientificName;
 	private boolean migratory;
-	private String specieType;
 	private Wetland[] wetlands;
+    private SpecieType specieType;
 	private static final int maxWetlands=79;
 
 	/**
@@ -17,12 +17,12 @@ public class Specie {
 	 * @param type
 	 */
 
-	public Specie(String specieName, String scientificName, boolean migratory, String specieType) {
+	public Specie(String specieName, String scientificName, boolean migratory, SpecieType specieType) {
 		this.specieName = specieName;
 		this.scientificName = scientificName;
 		this.migratory = migratory;
-		this.specieType = specieType;
 		wetlands = new Wetland[maxWetlands];
+        this.specieType= specieType;
 	}
 	
 	public String toString(){
@@ -85,20 +85,6 @@ public class Specie {
      */
     public void setMigratory(boolean migratory) {
         this.migratory = migratory;
-    }
-
-    /**
-     * @return String return the specieType
-     */
-    public String getSpecieType() {
-        return specieType;
-    }
-
-    /**
-     * @param specieType the specieType to set
-     */
-    public void setSpecieType(String specieType) {
-        this.specieType = specieType;
     }
 
     /**

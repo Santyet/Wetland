@@ -38,13 +38,33 @@ public class Wetland{
 
 	public String toString(){
 
+		String lt = null;
+		String t = null;
+		String p = null;
+
+		if(locationType == true){
+			lt = "Urban";
+		}else{
+			lt = "Rural";
+		}
+		if(type == true){
+			t = "Private";
+		}else{
+			t = "Public";
+		}
+		if(protectedArea==true){
+			p = "Yes";
+		}else{
+			p = "No";
+		}
+
 		return "Wetland's name: "+name
-		+"\nLocation type: "+locationType
+		+"\nLocation type: "+lt
 		+"\nLocation name: "+locationName
-		+"\nType of wetland: "+type
+		+"\nType of wetland: "+t
 		+"\nArea: "+area+"km2"
 		+"\nPicture URL: "+pictureURL
-		+"\nProtected: "+protectedArea
+		+"\nProtected: "+p
 		+"\nNumber of events done: "+eventCount;
 	}
 
@@ -84,4 +104,117 @@ public class Wetland{
     public void setEventCount(int eventCount) {
         this.eventCount = eventCount;
     }
+
+	/**
+     * @return Specie[] return the species
+     */
+    public Specie[] getSpecies() {
+        return species;
+    }
+
+    /**
+     * @param name the name to set
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * @return boolean return the locationType
+     */
+    public boolean isLocationType() {
+        return locationType;
+    }
+
+    /**
+     * @param locationType the locationType to set
+     */
+    public void setLocationType(boolean locationType) {
+        this.locationType = locationType;
+    }
+
+    /**
+     * @return boolean return the type
+     */
+    public boolean isType() {
+        return type;
+    }
+
+    /**
+     * @param type the type to set
+     */
+    public void setType(boolean type) {
+        this.type = type;
+    }
+
+    /**
+     * @return double return the area
+     */
+    public double getArea() {
+        return area;
+    }
+
+    /**
+     * @param area the area to set
+     */
+    public void setArea(double area) {
+        this.area = area;
+    }
+
+    /**
+     * @return String return the pictureURL
+     */
+    public String getPictureURL() {
+        return pictureURL;
+    }
+
+    /**
+     * @param pictureURL the pictureURL to set
+     */
+    public void setPictureURL(String pictureURL) {
+        this.pictureURL = pictureURL;
+    }
+
+    /**
+     * @return boolean return the protectedArea
+     */
+    public boolean isProtectedArea() {
+        return protectedArea;
+    }
+
+    /**
+     * @param protectedArea the protectedArea to set
+     */
+    public void setProtectedArea(boolean protectedArea) {
+        this.protectedArea = protectedArea;
+    }
+
+    /**
+     * @return String return the locationName
+     */
+    public String getLocationName() {
+        return locationName;
+    }
+
+    /**
+     * @param locationName the locationName to set
+     */
+    public void setLocationName(String locationName) {
+        this.locationName = locationName;
+    }
+
+    /**
+     * @param species2 the species to set
+     */
+    public void setSpecies(Specie[] species) {
+        this.species = species;
+    }
+
+    /**
+     * @return Event[] return the events
+     */
+    public Event[] getEvents() {
+        return events;
+    }
+
 }

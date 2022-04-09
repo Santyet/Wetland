@@ -2,9 +2,9 @@ package ui;
 import java.util.Scanner;
 
 import javax.swing.border.EtchedBorder;
+import javax.swing.text.AsyncBoxView;
 
 import model.SystemWL;
-import model.Wetland;
 import model.DateA;
 
 
@@ -62,7 +62,7 @@ public class MainWetland {
                 registerWetland();
                 break;
             case 2:
-
+                addSpecie();
                 break;
             case 3:
             
@@ -77,7 +77,7 @@ public class MainWetland {
 
                 break;
             case 7:
-                System.out.println(displayWetlands());;
+                System.out.println(system.displayWetlands());;
                 break;
             case 8:
 
@@ -99,26 +99,24 @@ public class MainWetland {
         String wLocationName;
         int maxWetlands = system.getMaxWetlands();
 
+        do{
         System.out.println("Registering wetland...\nPlease enter the name of the wetland: ");
         wName = sc.nextLine();
-        /*for(int i=0;i<maxWetlands;i++){
-            if()
-
-        }
-       */
+        }while(!system.checkForWetlandName(wName));
+        
+       
         do{
         System.out.println("Please enter the location type of the wetland (1) for urban and (2) for rural: ");
         option = sc.nextInt();
         sc.nextLine();
-        if(option!=2 & option!=1){
-            System.out.println("Enter a valid option.");
-        }
-        }while(option!=2 & option!=1);
+        }while(!system.checkFor12(option));
+
         if(option==1){
             wLocationType = true;
         }else{
             wLocationType = false;
         }
+        
 
         System.out.println("Please enter the location name of the wetland: ");
         wLocationName = sc.nextLine();
@@ -127,9 +125,7 @@ public class MainWetland {
         System.out.println("Please enter the type of the wetland (1) for public and (2) for private: ");
         option = sc.nextInt();
             
-        if(option!=2 & option!=1){
-            System.out.println("Enter a valid option.");
-        }
+        system.checkFor12(option);
         }while(option!=2 & option!=1);
         if(option==1){
             wType = true;
@@ -151,9 +147,8 @@ public class MainWetland {
         do{
         System.out.println("Enter (1) if the wetland is a protected area, (2) if not: ");
         option = sc.nextInt();
-        if(option!=2 & option!=1){
-            System.out.println("Enter a valid option.");
-        }
+        
+        system.checkFor12(option);
         }while(option!=2 & option!=1);
         if(option==1){
             wProtectedArea = true;
@@ -161,7 +156,7 @@ public class MainWetland {
             wProtectedArea = false;
         }
 
-        System.out.println(system.addWetland(wName, wLocationType, wLocationName, wType, wArea, wPictureURL, wProtectedArea));;
+        System.out.println(system.addWetland(wName, wLocationType, wLocationName, wType, wArea, wPictureURL, wProtectedArea));
     }
 
     public void registerEvent(){
@@ -178,39 +173,73 @@ public class MainWetland {
 
         System.out.println("Please type the name of the wetland where you want to create the event: ");
         eName = sc.nextLine();
+
         System.out.println("Please type the event type: ");
         eType = sc.nextLine();
+
         System.out.println("Please type the event date... \nDay: ");
         eDay = sc.nextInt();
+
         System.out.println("Month: ");
         eMonth = sc.nextInt();
+
         System.out.println("Year: ");
         eYear = sc.nextInt();
+
         eDate = new DateA(eDay, eMonth, eYear);
+
         System.out.println("Please type the name of the event's host:");
         eHost = sc.nextLine();
+
         System.out.println("Please type the cost of the event: ");
         eCost = sc. nextDouble();
+        
         System.out.println("Please type the event description: ");
         eDescription = sc.nextLine();
 
         System.out.println(system.addEvent(eName, eType, eDate, eHost, eCost, eDescription));
     }
 
-    public String displayWetlands(){
+    public void addSpecie(){
 
-        int maxWetlands = system.getMaxWetlands();
-        Wetland [] wetlands = system.getWetlands();
+        String name;
+        String sciName;
+        String wetName;
+        int migOpt;
+        boolean mig;
+        int option;
 
-		String totalWetlandsInfo="";
+        System.out.println("Please enter the wetland to add the specie: ");
+        wetName = sc.nextLine();
 
-		for(int i=0; i<maxWetlands;i++){
-			if(wetlands[i]!=null){
-				totalWetlandsInfo += i+1 + ". " + wetlands[i].toString() + "\n\n";
-			}
-		}
-		return totalWetlandsInfo;
-	}
+        System.out.println("Please enter the type of the specie: \n(1)Acuatic Flora."+
+        "\n(2)Land Flora."+
+        "\n(3)Mammal."+
+        "\n(4)Bird."+
+        "\n(5)Acuatic Fauna");
+
+        option = sc.nextInt();
+        sc.nextLine();
+
+        System.out.println("Please enter the name of the specie: ");
+        name = sc.nextLine();
+
+        System.out.println("please enter the scientific name of the specie: ");
+        sciName = sc.nextLine();
+
+        System.out.println("Is the specie migratory? "+
+        "\n(1)Yes.\n(2)No.");
+        migOpt = sc.nextInt();
+        if(migOpt==1){
+            mig=true;
+        }else{
+            mig=false;
+        }
+
+        System.out.println(system.addSpecie(wetName, name, sciName, mig, option));
+
+    }
+
 
     /**
      * @return Scanner return the sc

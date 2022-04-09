@@ -1,5 +1,8 @@
 package model;
 
+import java.lang.StackWalker.Option;
+import java.sql.Blob;
+
 public class SystemWL {
 
     private static final int maxWetlands=79;
@@ -18,17 +21,17 @@ public class SystemWL {
 
     public int emptyPosES(){
 
-		int emptyPositionE= -1;
+		int emptyPositionES= -1;
         boolean stop = false;
 		for (int i=0; i<maxEvents & !stop; i++){
 
 			if(events[i] == null){
-				emptyPositionE= i;
+				emptyPositionES= i;
                 stop = true;
 			}
 
 		}
-		return emptyPositionE;
+		return emptyPositionES;
 
 	}
 
@@ -52,16 +55,14 @@ public class SystemWL {
 	public String addWetland(String n, boolean lt, String ln, boolean t, double a, String purl, boolean pa) {
 
 		String out = "";
-
-		int emptyPositionW = emptyPosWetlands();
-
-		if(emptyPositionW == -1){ 
+        
+		if(emptyPosWetlands() == -1){ 
 
 			out = "Array is full.";
 
 		}else{ 
 			
-			wetlands[emptyPositionW] =  new Wetland(n, lt, ln, t, a, purl, pa);
+			wetlands[emptyPosWetlands()] =  new Wetland(n, lt, ln, t, a, purl, pa);
 			out = "New wetland added.";
 
 		}
@@ -77,8 +78,6 @@ public class SystemWL {
         String out = "";
         int select;
 
-        int emptyPositionE = emptyPosES();
-
         for(int i = 0; i<maxWetlands;i++){
 
             if(wetlands[i].getName().equals(n)){
@@ -86,12 +85,12 @@ public class SystemWL {
             }
         }
 
-        if (emptyPositionE == -1){
+        if (emptyPosES() == -1){
 
             out = "Array is full.";
         }else{
 
-            events[emptyPositionE] = new Event(et, ed, h, c, d);
+            events[emptyPosES()] = new Event(et, ed, h, c, d);
          
             out = "New event added";
         }
@@ -100,13 +99,113 @@ public class SystemWL {
 
     }
 
-    public String addSpecie(){
+ public String addSpecie(String n, String en, String esn, boolean m, int t){
 
         String out = "";
+        int select;
+        SpecieType specieSelect = null;
+        boolean ok = true;
+
+        for(int i = 0; i<maxWetlands; i++){
+            if(species[i]!=null){
+                if(species[i].getSpecieName().equals(en)){
+                ok = false;
+                }
+            }
+        }
+        if(ok == true){
+            for(int i = 0; i<maxWetlands; i++){
+                if(wetlands[i]!=null){
+                    if(wetlands[i].getName().equals(n)){
+                    select = i;
+                    }
+                }
+        }
+			
+			switch(t){
+				case 1:
+					specieSelect = SpecieType.AQUATIC_FLORA;
+					break;
+				case 2:
+					specieSelect = SpecieType.LAND_FLORA;
+					break;
+				case 3:
+					specieSelect = SpecieType.MAMMAL;
+					break;
+				case 4:
+					specieSelect = SpecieType.BIRD;
+					break;
+				case 5:
+					specieSelect = SpecieType.AQUATIC_FAUNA;
+					break;
+
+			}		
+
+        if (emptyPosES() == -1){
+
+            out = "Array is full.";
+        }else{
+
+            species[emptyPosES()] = new Specie(en, esn, m, specieSelect);
+            
+            out = "New Specie added";
+        }
+        }else{
+            out = "Specie already exists";
+        }
 
         return out;
     }
 
+    public void associateSpecie2Wetland(){
+
+        
+    }
+
+    public String displayWetlands(){
+
+		String totalWetlandsInfo="";
+
+		for(int i=0; i<maxWetlands;i++){
+			if(wetlands[i]!=null){
+				totalWetlandsInfo += i+1 + ". " + wetlands[i].toString() + "\n\n";
+			}
+		}
+		return totalWetlandsInfo;
+	}
+
+    public boolean checkForWetlandName(String wName){
+
+        boolean ok = true;
+
+        for(int i = 0; i<maxWetlands; i++){
+            if(wetlands[i]!=null){
+                if(wetlands[i].getName().equals(wName)){
+                ok = false;
+                System.out.println("\nWetland name already exists.");
+                }
+            }
+        }
+
+        return ok;
+    }
+
+    public boolean checkFor12(int opt){
+
+        boolean ok = false;
+        do{
+        if(opt!=2 & opt!=1){
+            System.out.println("Enter a valid option.");
+            break;
+            }else{
+                ok = true;
+            }
+        }while(opt!=2 & opt!=1);
+
+        return ok;
+    }
+
+   
 	public int getMaxWetlands(){
 
 		return maxWetlands;
@@ -138,6 +237,21 @@ public class SystemWL {
      */
     public void setWetlands(Wetland[] wetlands) {
         this.wetlands = wetlands;
+    }
+
+
+    /**
+     * @return Specie[] return the species
+     */
+    public Specie[] getSpecies() {
+        return species;
+    }
+
+    /**
+     * @param species the species to set
+     */
+    public void setSpecies(Specie[] species) {
+        this.species = species;
     }
 
 }
