@@ -16,13 +16,29 @@ public class SystemWL {
         species = new Specie[maxSpecies];
     }
 
-    public int emptyPosES(){
+    public int emptyPosE(){
 
 		int emptyPositionES= -1;
         boolean stop = false;
 		for (int i=0; i<maxEvents & !stop; i++){
 
 			if(events[i] == null){
+				emptyPositionES= i;
+                stop = true;
+			}
+
+		}
+		return emptyPositionES;
+
+	}
+
+    public int emptyPosS(){
+
+		int emptyPositionES= -1;
+        boolean stop = false;
+		for (int i=0; i<maxEvents & !stop; i++){
+
+			if(species[i] == null){
 				emptyPositionES= i;
                 stop = true;
 			}
@@ -80,7 +96,7 @@ public class SystemWL {
                 eventSelect = EventType.SCHOOL_VISIT;
                 break;
             case 3:
-                eventSelect = EventType.IMPROVEMENT_ACTIVITIE;
+                eventSelect = EventType.IMPROVEMENT_ACTIVITY;
                 break;
             case 4:
                 eventSelect = EventType.CELEBRATION;
@@ -88,14 +104,14 @@ public class SystemWL {
         }
        
 
-        if (emptyPosES() == -1){
+        if (emptyPosE() == -1){
 
             out = "Array is full.";
         }else{
 
-            events[emptyPosES()] = new Event(eventSelect, ed, h, c, d);
+            events[emptyPosE()] = new Event(eventSelect, ed, h, c, d);
 
-            wetlands[getWetlandSpace(n)].addEventToWetland(events[emptyPosES()-1]);
+            wetlands[getWetlandSpace(n)].addEventToWetland(events[emptyPosE()-1]);
          
             out = "New event added";
         }
@@ -138,12 +154,12 @@ public class SystemWL {
 
 			}		
 
-        if (emptyPosES() == -1){
+        if (emptyPosS() == -1){
 
             out = "Array is full.";
         }else{
 
-            species[emptyPosES()] = new Specie(en, esn, m, specieSelect);
+            species[emptyPosS()] = new Specie(en, esn, m, specieSelect);
             
             out = "New Specie added";
         }
@@ -324,52 +340,4 @@ public class SystemWL {
         return out;
    }
    
-    public int getMaxWetlands(){
-
-		return maxWetlands;
-	}
-
-    /**
-     * @return Event[] return the events
-     */
-    public Event[] getEvents() {
-        return events;
-    }
-
-    /**
-     * @param events the events to set
-     */
-    public void setEvents(Event[] events) {
-        this.events = events;
-    }
-
-    /**
-     * @return Wetland[] return the wetlands
-     */
-    public Wetland[] getWetlands() {
-        return wetlands;
-    }
-
-    /**
-     * @param wetlands the wetlands to set
-     */
-    public void setWetlands(Wetland[] wetlands) {
-        this.wetlands = wetlands;
-    }
-
-
-    /**
-     * @return Specie[] return the species
-     */
-    public Specie[] getSpecies() {
-        return species;
-    }
-
-    /**
-     * @param species the species to set
-     */
-    public void setSpecies(Specie[] species) {
-        this.species = species;
-    }
-
 }

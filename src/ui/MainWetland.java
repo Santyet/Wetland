@@ -1,8 +1,6 @@
 package ui;
 import java.util.Scanner;
 
-import javax.naming.directory.SearchResult;
-
 import model.SystemWL;
 import model.DateA;
 
@@ -207,7 +205,6 @@ public class MainWetland {
 
         System.out.println(system.addEvent(eName, eType, eDate, eHost, eCost, eDescription));
     }
-    
 
     public void registerSpecie(){
 
@@ -276,33 +273,6 @@ public class MainWetland {
         System.out.println("Please type the specie to find the wetlands where it lives:");
         search = sc.nextLine();
         System.out.println(system.searchWetlands(search));
-    }
-    /**
-     * @return Scanner return the sc
-     */
-    public Scanner getSc() {
-        return sc;
-    }
-
-    /**
-     * @param sc the sc to set
-     */
-    public void setSc(Scanner sc) {
-        this.sc = sc;
-    }
-
-    /**
-     * @return SystemWL return the system
-     */
-    public SystemWL getSystem() {
-        return system;
-    }
-
-    /**
-     * @param system the system to set
-     */
-    public void setSystem(SystemWL system) {
-        this.system = system;
     }
 
 }
