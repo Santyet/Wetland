@@ -136,10 +136,10 @@ public class MainWetland {
         System.out.println("Please enter the area of the wetland: ");
         wArea = sc.nextDouble();
         sc.nextLine();
-        if(wArea<1){
+        if(wArea<0){
             System.out.println("Enter a valid option");
         }
-        }while(wArea<1);
+        }while(wArea<0);
 
         System.out.println("Please enter te image URL of the wetland: ");
         wPictureURL = sc.nextLine();
@@ -229,9 +229,11 @@ public class MainWetland {
         System.out.println("please enter the scientific name of the specie: ");
         sciName = sc.nextLine();
 
+        do{
         System.out.println("Is the specie migratory? "+
         "\n(1)Yes.\n(2)No.");
         migOpt = sc.nextInt();
+        }while(!system.checkFor12(migOpt));
         if(migOpt==1){
             mig=true;
         }else{
@@ -270,7 +272,7 @@ public class MainWetland {
 
         String search;
 
-        System.out.println("Please type the specie to find the wetlands where it lives:");
+        System.out.println("Please type the specie name to find the wetlands where it lives:");
         search = sc.nextLine();
         System.out.println(system.searchWetlands(search));
     }
