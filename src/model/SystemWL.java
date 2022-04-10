@@ -159,7 +159,9 @@ public class SystemWL {
         String out = "";
         
         Specie specie = species[searchSpecie(en)];
+        Wetland wetland = wetlands[getWetlandSpace(wn)];
         wetlands[getWetlandSpace(wn)].addSpecieToWetland(specie);
+        species[searchSpecie(en)].addWetlandToSpecie(wetland);
         return out;
     }
 
@@ -292,9 +294,36 @@ public class SystemWL {
             }
         }
         out = "\nThe wetland with less flora species is: "+wetlands[index].getName();
+        
         return out;
     }
     
+    public String mostFaunaWetland(){
+
+        String out = "";
+        int less = wetlands[0].getMostFauna();
+        int index = 0;
+        for(int i = 0;i<maxWetlands; i++){
+            if(wetlands[i]!=null){
+                if(wetlands[i].getMostFauna()>=less){
+                    less = wetlands[i].getMostFauna();
+                    index = i;
+                }
+            }
+        }
+        out = "\nThe wetland with most fauna species is: "+wetlands[index].getName();
+        if(less==0){
+            out = "\nThere are no fauna in any wetland.";
+        }
+        return out;
+    }
+   
+    public String searchWetlands(String n){
+
+        String out = species[searchSpecie(n)].searchWets();
+        return out;
+   }
+   
     public int getMaxWetlands(){
 
 		return maxWetlands;

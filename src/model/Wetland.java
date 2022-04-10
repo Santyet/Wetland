@@ -104,6 +104,33 @@ public class Wetland{
         return out;
     }
 
+    public int getMostFauna(){
+
+        int out = 0;
+
+        int totalM = 0, totalB = 0, totalA = 0;
+
+        for(int i = 0;i<maxSpecies;i++){
+            if(species[i]!=null){
+                if(species[i].getSpecieType().equals(SpecieType.MAMMAL)){
+
+                 totalM++;
+                }
+                if(species[i].getSpecieType().equals(SpecieType.BIRD)){
+
+                 totalB++;
+                }
+                if(species[i].getSpecieType().equals(SpecieType.AQUATIC_FAUNA)){
+
+                 totalA++;
+                }  
+            }
+        }
+        out = totalA+totalB+totalM;
+
+        return out;
+    }
+
     public String numMaintenance(int y){
 
         int count=0;
@@ -153,6 +180,7 @@ public class Wetland{
 
 	}
 
+
 	public String toString(){
 
 		String lt = null;
@@ -182,31 +210,6 @@ public class Wetland{
 		+"\nArea: "+area+"km2"
 		+"\nPicture URL: "+pictureURL
 		+"\nProtected: "+p+"\n";
-	}
-
-    public String organizeEvents(){
-
-        String out = "";
-
-        for(int i=0; i<maxEvents;i++){
-			if(events[i]!=null){
-				out += i+1 + ". " + events[i].toString() + "\n\n";
-			}
-		}
-
-        return out;
-    }
-
-	public String organizeSpecies(){
-
-		String totalSpeciesInfo="";
-
-		for(int i=0; i<maxSpecies;i++){
-			if(species[i]!=null){
-				totalSpeciesInfo+=i + ". " + species[i] + "\n";
-			}
-		}
-		return totalSpeciesInfo;
 	}
 
 	public void setEvents(Event[] events) {

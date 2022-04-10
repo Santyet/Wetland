@@ -24,7 +24,38 @@ public class Specie {
 		wetlands = new Wetland[maxWetlands];
         this.specieType= specieType;
 	}
-	
+
+    public void addWetlandToSpecie(Wetland w){
+
+        wetlands[emptyPosWetlands()] = w;
+    }
+
+	public int emptyPosWetlands(){
+
+		int emptyPositionW=-1;
+        boolean stop = false;
+		for (int i=0; i<maxWetlands & !stop; i++){
+
+			if(wetlands[i] == null){
+				emptyPositionW= i;
+                stop=true;
+			}
+		}
+		return emptyPositionW;
+
+	}
+
+    public String searchWets(){
+
+        String out = "The specie lives in: \n";
+            for(int i = 0;i<maxWetlands;i++){
+                if(wetlands[i]!=null){
+                    out +=i+1+ ". " + wetlands[i].getName() + "\n\n";
+                }
+            }
+        return out;
+    }
+
 	public String toString(){
 		
 		return "Specie Name: "+specieName
@@ -33,17 +64,6 @@ public class Specie {
 		+"Specie type: "+specieType;
 	}
 
-	public String organizeWetlands(){
-
-		String totalWetlandsInfo="";
-
-		for(int i=0; i<maxWetlands;i++){
-			if(wetlands[i]!=null){
-				totalWetlandsInfo+=i + ". " + wetlands[i] + "\n";
-			}
-		}
-		return totalWetlandsInfo;
-	}
 
     /**
      * @return String return the specieName

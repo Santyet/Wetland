@@ -1,6 +1,8 @@
 package ui;
 import java.util.Scanner;
 
+import javax.naming.directory.SearchResult;
+
 import model.SystemWL;
 import model.DateA;
 
@@ -75,13 +77,13 @@ public class MainWetland {
                 System.out.println(system.lessFloraWetland());
                 break;
             case 7:
-                
+                searchWetlandsFromSpecie();
                 break;
             case 8:
                 System.out.println(system.displayWetlands());;
                 break;
             case 9:
-
+                System.out.println(system.mostFaunaWetland());
                 break;
             default:
                 System.out.println("\nPlease type a valid option.");
@@ -267,6 +269,14 @@ public class MainWetland {
         System.out.println(system.numberMaintenances(year));
     }
 
+    public void searchWetlandsFromSpecie(){
+
+        String search;
+
+        System.out.println("Please type the specie to find the wetlands where it lives:");
+        search = sc.nextLine();
+        System.out.println(system.searchWetlands(search));
+    }
     /**
      * @return Scanner return the sc
      */
