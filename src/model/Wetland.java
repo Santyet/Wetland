@@ -1,7 +1,5 @@
 package model;
 
-import java.text.BreakIterator;
-
 public class Wetland{
 
 	private String name;
@@ -13,7 +11,6 @@ public class Wetland{
 	private String locationName;
 	private Specie[] species;
 	private Event[] events;
-	private int eventCount;
 	private static final int maxSpecies=9999999;
 	private static final int maxEvents=9999999;
 
@@ -33,15 +30,78 @@ public class Wetland{
 		this.pictureURL = pictureURL;
 		this.protectedArea = protectedArea;
 		this.locationName = locationName;
-		eventCount = 0;
 		species = new Specie[maxSpecies];
 		events = new Event[maxEvents];
 	}
 
     public void addEventToWetland(Event e){
 
-        events[emptyPosES()] = e;
+        events[emptyPosE()] = e;
 
+    }
+
+    public void addSpecieToWetland(Specie s){
+
+        species[emptyPosS()] = s;
+    }
+
+    public String calculateTotalSpecies(){
+        
+        int totalAF = 0, totalLF = 0, totalM = 0, totalB = 0, totalA = 0;
+
+        for(int i = 0;i<maxSpecies;i++){
+            if(species[i]!=null){
+                if(species[i].getSpecieType().equals(SpecieType.AQUATIC_FLORA)){
+
+                    totalAF++;
+                }
+                if(species[i].getSpecieType().equals(SpecieType.LAND_FLORA)){
+
+                    totalLF++;
+                }
+                if(species[i].getSpecieType().equals(SpecieType.MAMMAL)){
+
+                 totalM++;
+                }
+                if(species[i].getSpecieType().equals(SpecieType.BIRD)){
+
+                 totalB++;
+                }
+                if(species[i].getSpecieType().equals(SpecieType.AQUATIC_FAUNA)){
+
+                 totalA++;
+                }  
+            }
+        }
+
+        return "This wetland has: \n"+totalAF+ " aquatic flora species."
+        +"\n"+totalLF+ " land flora species."+
+        "\n" + totalM + " mammal species."+
+        "\n" + totalB + " bird species."
+        + "\n" + totalA + " Aquatic fauna species.";
+    }
+
+    public int getLessFlora(){
+
+        int totalAF = 0;
+        int totalLF = 0;
+
+        for(int i = 0;i<maxSpecies;i++){
+            if(species[i]!=null){
+                if(species[i].getSpecieType().equals(SpecieType.AQUATIC_FLORA)){
+
+                    totalAF++;
+                }
+                if(species[i].getSpecieType().equals(SpecieType.LAND_FLORA)){
+
+                    totalLF++;
+                }
+            }
+        }
+
+        int out= totalAF + totalLF;
+
+        return out;
     }
 
     public String numMaintenance(int y){
@@ -61,13 +121,29 @@ public class Wetland{
         return "Number of maintenances:" + count;
     }
 
-    public int emptyPosES(){
+    public int emptyPosE(){
 
 		int emptyPositionES= -1;
         boolean stop = false;
 		for (int i=0; i<maxEvents & !stop; i++){
 
 			if(events[i] == null){
+				emptyPositionES= i;
+                stop = true;
+			}
+
+		}
+		return emptyPositionES;
+
+	}
+
+    public int emptyPosS(){
+
+		int emptyPositionES= -1;
+        boolean stop = false;
+		for (int i=0; i<maxEvents & !stop; i++){
+
+			if(species[i] == null){
 				emptyPositionES= i;
                 stop = true;
 			}
@@ -105,7 +181,7 @@ public class Wetland{
 		+"\nType of wetland: "+t
 		+"\nArea: "+area+"km2"
 		+"\nPicture URL: "+pictureURL
-		+"\nProtected: "+p;
+		+"\nProtected: "+p+"\n";
 	}
 
     public String organizeEvents(){
@@ -135,7 +211,6 @@ public class Wetland{
 
 	public void setEvents(Event[] events) {
 		this.events = events;
-        eventCount++;
 	}
 
 	/**
@@ -143,20 +218,6 @@ public class Wetland{
      */
     public String getName() {
         return name;
-    }
-
-	 /**
-     * @return int return the eventCount
-     */
-    public int getEventCount() {
-        return eventCount;
-    }
-
-    /**
-     * @param eventCount the eventCount to set
-     */
-    public void setEventCount(int eventCount) {
-        this.eventCount = eventCount;
     }
 
 	/**

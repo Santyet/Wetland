@@ -34,13 +34,14 @@ public class MainWetland {
         System.out.println("\n\nPlease select an option:"
         +"\n(0) To exit."
         +"\n(1) To create a wetland."
-        +"\n(2) To register a new specie in a wetland."
-        +"\n(3) To register an event in a wetland."
-        +"\n(4) To get specific year maintenance number on every wetland."
-        +"\n(5) To display the wetland with less flora species."
-        +"\n(6) To search every wetland containing the wished specie."
-        +"\n(7) To display every wetland info."
-        +"\n(8) To display the wetland with most animals.");
+        +"\n(2) To register a new specie"
+        +"\n(3) To add a specie to a wetland."
+        +"\n(4) To register an event in a wetland."
+        +"\n(5) To get specific year maintenance number on every wetland."
+        +"\n(6) To display the wetland with less flora species."
+        +"\n(7) To search every wetland that contains the wished specie."
+        +"\n(8) To display every wetland info."
+        +"\n(9) To display the wetland with most animals.");
 
         input=sc.nextInt();
         sc.nextLine();
@@ -59,24 +60,27 @@ public class MainWetland {
                 registerWetland();
                 break;
             case 2:
-                addSpecie();
+                registerSpecie();
                 break;
             case 3:
-                registerEvent();
+                registerSpecieToWetland();
                 break;
             case 4:
-                showMaintenance();
+                registerEvent();
                 break;
             case 5:
-
+                showMaintenance();
                 break;
             case 6:
-
+                System.out.println(system.lessFloraWetland());
                 break;
             case 7:
-                System.out.println(system.displayWetlands());;
+                
                 break;
             case 8:
+                System.out.println(system.displayWetlands());;
+                break;
+            case 9:
 
                 break;
             default:
@@ -203,18 +207,13 @@ public class MainWetland {
     }
     
 
-    public void addSpecie(){
+    public void registerSpecie(){
 
         String name;
         String sciName;
-        String wetName;
         int migOpt;
         boolean mig;
         int option;
-
-        System.out.println("Please enter the wetland to add the specie: ");
-        wetName = sc.nextLine();
-
         do{
         System.out.println("Please enter the type of the specie: \n(1)Acuatic Flora."+
         "\n(2)Land Flora."+
@@ -240,7 +239,22 @@ public class MainWetland {
             mig=false;
         }
 
-        System.out.println(system.addSpecie(wetName, name, sciName, mig, option));
+        System.out.println(system.addSpecie(name, sciName, mig, option));
+
+    }
+
+    public void registerSpecieToWetland(){
+
+        String wName;
+        String specie;
+
+        System.out.println("Please type the specie to add: ");
+        specie = sc.nextLine();
+
+        System.out.println("Please type the wetland to add the specie: ");
+        wName = sc.nextLine();
+
+        System.out.println(system.addSpecieToWetland(specie, wName));
 
     }
 

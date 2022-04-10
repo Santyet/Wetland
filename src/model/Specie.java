@@ -101,4 +101,19 @@ public class Specie {
         this.wetlands = wetlands;
     }
 
+
+    /**
+     * @return SpecieType return the specieType
+     */
+    public SpecieType getSpecieType() {
+        return specieType;
+    }
+
+    /**
+     * @param specieType the specieType to set
+     */
+    public void setSpecieType(SpecieType specieType) {
+        this.specieType = specieType;
+    }
+
 }

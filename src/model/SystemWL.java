@@ -47,8 +47,6 @@ public class SystemWL {
 
 	}
 
-
-
 	public String addWetland(String n, boolean lt, String ln, boolean t, double a, String purl, boolean pa) {
 
 		String out = "";
@@ -106,10 +104,9 @@ public class SystemWL {
 
     }
 
-    public String addSpecie(String n, String en, String esn, boolean m, int t){
+    public String addSpecie(String en, String esn, boolean m, int t){
 
         String out = "";
-        int select;
         SpecieType specieSelect = null;
         boolean ok = true;
 
@@ -121,13 +118,6 @@ public class SystemWL {
             }
         }
         if(ok == true){
-            for(int i = 0; i<maxWetlands; i++){
-                if(wetlands[i]!=null){
-                    if(wetlands[i].getName().equals(n)){
-                    select = i;
-                    }
-                }
-        }
 			
 			switch(t){
 				case 1:
@@ -164,6 +154,30 @@ public class SystemWL {
         return out;
     }
 
+    public String addSpecieToWetland(String en, String wn){
+
+        String out = "";
+        
+        Specie specie = species[searchSpecie(en)];
+        wetlands[getWetlandSpace(wn)].addSpecieToWetland(specie);
+        return out;
+    }
+
+    public int searchSpecie(String n){
+
+        int out = -1;
+
+        for(int i = 0;i<maxSpecies;i++){
+            if(species[i]!=null){
+                if(species[i].getSpecieName().equals(n)){
+                    out = i;
+                }
+            }
+        }
+        
+        return out;
+    }
+
     public String numberMaintenances(int year){
 
         String out = "";
@@ -182,7 +196,7 @@ public class SystemWL {
 
 		for(int i=0; i<maxWetlands;i++){
 			if(wetlands[i]!=null){
-				totalWetlandsInfo += i+1 + ". " + wetlands[i].toString() + "\n\n";
+				totalWetlandsInfo += i+1 + ". " + wetlands[i].toString() + wetlands[i].calculateTotalSpecies() + "\n\n";
 			}
 		}
 		return totalWetlandsInfo;
@@ -263,7 +277,25 @@ public class SystemWL {
 
         return ok;
     }
-	public int getMaxWetlands(){
+	
+    public String lessFloraWetland(){
+
+        String out = "";
+        int less = wetlands[0].getLessFlora();
+        int index = 0;
+        for(int i = 0;i<maxWetlands; i++){
+            if(wetlands[i]!=null){
+                if(wetlands[i].getLessFlora()<=less){
+                    less = wetlands[i].getLessFlora();
+                    index = i;
+                }
+            }
+        }
+        out = "\nThe wetland with less flora species is: "+wetlands[index].getName();
+        return out;
+    }
+    
+    public int getMaxWetlands(){
 
 		return maxWetlands;
 	}
