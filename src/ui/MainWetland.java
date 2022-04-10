@@ -63,7 +63,7 @@ public class MainWetland {
                 registerSpecie();
                 break;
             case 3:
-                registerSpecieToWetland();
+                addSpecieToWetland();
                 break;
             case 4:
                 registerEvent();
@@ -244,7 +244,7 @@ public class MainWetland {
 
     }
 
-    public void registerSpecieToWetland(){
+    public void addSpecieToWetland(){
 
         String wName;
         String specie;

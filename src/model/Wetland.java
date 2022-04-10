@@ -179,8 +179,7 @@ public class Wetland{
 		return emptyPositionES;
 
 	}
-
-
+    
 	public String toString(){
 
 		String lt = null;
