@@ -173,11 +173,30 @@ public class SystemWL {
     public String addSpecieToWetland(String en, String wn){
 
         String out = "";
+        int a=0;
+        if(searchSpecie(en)==-1){
+
+            out = "Specie doesn't exist.";
+            a++;
+        }
+            
+        if(getWetlandSpace(wn)==-1){
+            out = "Wetland doesn't exist.";
+            a++;
+            }
+        if(a<1){
+            Specie specie = species[searchSpecie(en)];
+            Wetland wetland = wetlands[getWetlandSpace(wn)];
+            wetlands[getWetlandSpace(wn)].addSpecieToWetland(specie);
+            species[searchSpecie(en)].addWetlandToSpecie(wetland);
+            out = "Specie added successfully.";
+            }
         
-        Specie specie = species[searchSpecie(en)];
-        Wetland wetland = wetlands[getWetlandSpace(wn)];
-        wetlands[getWetlandSpace(wn)].addSpecieToWetland(specie);
-        species[searchSpecie(en)].addWetlandToSpecie(wetland);
+
+        if(a==2){
+            out = "Specie and wetland don't exist.";
+        }
+
         return out;
     }
 
