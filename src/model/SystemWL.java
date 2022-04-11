@@ -124,16 +124,6 @@ public class SystemWL {
 
         String out = "";
         SpecieType specieSelect = null;
-        boolean ok = true;
-
-        for(int i = 0; i<maxWetlands; i++){
-            if(species[i]!=null){
-                if(species[i].getSpecieName().equals(en)){
-                ok = false;
-                }
-            }
-        }
-        if(ok == true){
 			
 			switch(t){
 				case 1:
@@ -163,9 +153,7 @@ public class SystemWL {
             
             out = "New Specie added";
         }
-        }else{
-            out = "Specie already exists";
-        }
+        
 
         return out;
     }
@@ -185,7 +173,7 @@ public class SystemWL {
             a++;
             }
         if(a<1){
-            Specie specie = species[searchSpecie(en)];
+            Specie specie = species[searchSpecieSciName(en)];
             Wetland wetland = wetlands[getWetlandSpace(wn)];
             wetlands[getWetlandSpace(wn)].addSpecieToWetland(specie);
             species[searchSpecie(en)].addWetlandToSpecie(wetland);
@@ -207,6 +195,21 @@ public class SystemWL {
         for(int i = 0;i<maxSpecies;i++){
             if(species[i]!=null){
                 if(species[i].getSpecieName().equals(n)){
+                    out = i;
+                }
+            }
+        }
+        
+        return out;
+    }
+
+    public int searchSpecieSciName(String n){
+
+        int out = -1;
+
+        for(int i = 0;i<maxSpecies;i++){
+            if(species[i]!=null){
+                if(species[i].getScientificName().equals(n)){
                     out = i;
                 }
             }
