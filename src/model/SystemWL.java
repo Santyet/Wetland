@@ -319,38 +319,50 @@ public class SystemWL {
 
         String out = "";
         int less = wetlands[0].getLessFlora();
-        int index = 0;
         for(int i = 0;i<maxWetlands; i++){
             if(wetlands[i]!=null){
                 if(wetlands[i].getLessFlora()<=less){
                     less = wetlands[i].getLessFlora();
-                    index = i;
                 }
             }
         }
-        out = "\nThe wetland with less flora species is: "+wetlands[index].getName();
+        for(int i = 0;i<maxWetlands; i++){
+            if(wetlands[i]!=null){
+                if(wetlands[i].getLessFlora()==less){
+                    out += "-"+wetlands[i].getName()+"\n";
+                }
+
+            }
+        }
         
-        return out;
+        
+        return "The wetland(s) with less flora species is(are): \n" + out;
     }
     
     public String mostFaunaWetland(){
 
         String out = "";
-        int less = wetlands[0].getMostFauna();
-        int index = 0;
+        int most = wetlands[0].getMostFauna();
         for(int i = 0;i<maxWetlands; i++){
             if(wetlands[i]!=null){
-                if(wetlands[i].getMostFauna()>=less){
-                    less = wetlands[i].getMostFauna();
-                    index = i;
+                if(wetlands[i].getMostFauna()>=most){
+                    most = wetlands[i].getMostFauna();
                 }
             }
         }
-        out = "\nThe wetland with most fauna species is: "+wetlands[index].getName();
-        if(less==0){
-            out = "\nThere are no fauna in any wetland.";
+
+        for(int i = 0;i<maxWetlands; i++){
+            if(wetlands[i]!=null){
+                if(wetlands[i].getMostFauna()==most){
+                    out += "-"+wetlands[i].getName()+"\n";
+                }
+
+            }
         }
-        return out;
+        if(most==0){
+            out = "\nThere is no fauna in any wetland.";
+        }
+        return "The wetland(s) with most fauna species is(are): \n" + out;
     }
    
     public String searchWetlands(String n){

@@ -256,7 +256,7 @@ public class MainWetland {
         String wName;
         String specie;
 
-        System.out.println("Please type the specie to add: ");
+        System.out.println("Please type the specie scientific name to add: ");
         specie = sc.nextLine();
 
         System.out.println("Please type the wetland to add the specie: ");
