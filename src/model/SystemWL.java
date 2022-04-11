@@ -355,7 +355,13 @@ public class SystemWL {
    
     public String searchWetlands(String n){
 
-        String out = species[searchSpecie(n)].searchWets();
+        String out = "";
+
+        if(searchSpecie(n)==-1){
+            out = "Specie doesn't exist in any wetland";
+        }else{
+            out = species[searchSpecie(n)].searchWets();
+        }
         return out;
    }
    
