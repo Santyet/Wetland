@@ -106,14 +106,14 @@ public class SystemWL {
 
         if (emptyPosE() == -1){
 
-            out = "Array is full.";
+            out = "\nArray is full.";
         }else{
 
             events[emptyPosE()] = new Event(eventSelect, ed, h, c, d);
 
             wetlands[getWetlandSpace(n)].addEventToWetland(events[emptyPosE()-1]);
          
-            out = "New event added";
+            out = "\nNew event added";
         }
 
         return out;
@@ -176,12 +176,12 @@ public class SystemWL {
         int a=0;
         if(searchSpecie(en)==-1){
 
-            out = "Specie doesn't exist.";
+            out = "\nSpecie doesn't exist.";
             a++;
         }
             
         if(getWetlandSpace(wn)==-1){
-            out = "Wetland doesn't exist.";
+            out = "\nWetland doesn't exist.";
             a++;
             }
         if(a<1){
@@ -189,12 +189,12 @@ public class SystemWL {
             Wetland wetland = wetlands[getWetlandSpace(wn)];
             wetlands[getWetlandSpace(wn)].addSpecieToWetland(specie);
             species[searchSpecie(en)].addWetlandToSpecie(wetland);
-            out = "Specie added successfully.";
+            out = "\nSpecie added successfully.";
             }
         
 
         if(a==2){
-            out = "Specie and wetland don't exist.";
+            out = "\nSpecie and wetland don't exist.";
         }
 
         return out;
@@ -247,7 +247,7 @@ public class SystemWL {
             if(wetlands[i]!=null){
                 if(wetlands[i].getName().equals(wName)){
                 ok = false;
-                System.out.println("\nWetland name already exists.");
+                System.out.println("\nWetland name already exists.\n");
                 }
             }
         }
@@ -365,4 +365,20 @@ public class SystemWL {
         return out;
    }
    
+   public boolean wetlandExists(String wName){
+
+    boolean ok = true;
+
+    for(int i = 0; i<maxWetlands; i++){
+        if(wetlands[i]!=null){
+            if(wetlands[i].getName().equals(wName)){
+            ok = false;
+            }
+        }
+    }
+    if(ok){
+        System.out.println("\nWetlant doesn't exist.\n");
+    }
+    return ok;
+}
 }

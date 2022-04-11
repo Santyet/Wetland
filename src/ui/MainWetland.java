@@ -171,8 +171,11 @@ public class MainWetland {
         int eMonth;
         int eYear;
 
+        do{
         System.out.println("Please type the name of the wetland where you want to create the event: ");
         eName = sc.nextLine();
+        }while(system.wetlandExists(eName));
+
         do{
         System.out.println("Please select the event type: \n(1)Maintenance."+
         "\n(2)School visit."+
@@ -225,9 +228,13 @@ public class MainWetland {
 
         System.out.println("Please enter the name of the specie: ");
         name = sc.nextLine();
-
+        do{
         System.out.println("please enter the scientific name of the specie: ");
         sciName = sc.nextLine();
+        if(system.searchSpecie(sciName)!=-1){
+            System.out.println("\nScientific name already exists.\n");
+        }
+        }while(system.searchSpecie(sciName)!=-1);
 
         do{
         System.out.println("Is the specie migratory? "+
